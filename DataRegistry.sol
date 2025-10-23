@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 contract DataRegistry {
     address public owner;
+    uint256 public hashCount;
     struct DataEntry {
         uint timestamp;
         bool exists;
@@ -18,6 +19,7 @@ contract DataRegistry {
         require(msg.sender == owner, "Only owner can store hashes");
         require(!dataHashes[_hash].exists, "Hash already exists");
         dataHashes[_hash] = DataEntry(block.timestamp, true);
+        hashCount++;
         emit HashStored(msg.sender, _hash, block.timestamp);
     }
 
